@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.pchf</groupId>
+    <artifactId>app-notification-service</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>app-notification-service</name>
+    <description>Spring Boot App Notification Service</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.9</version>
+        <relativePath/>
+    </parent>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <nexus.repository>https://XXXXX/repository</nexus.repository>
+        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
+        <maven-deploy-plugin.version>2.8.1</maven-deploy-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+        <spring-cloud.version>2022.0.2</spring-cloud.version>
+        <param-store-spring-client.version>2.0.1</param-store-spring-client.version>
+        <puppycrawl.checkstyle.version>8.34</puppycrawl.checkstyle.version>
+        <sevntu-checks.checkstyle.version>1.37.1</sevntu-checks.checkstyle.version>
+        <error_prone_core.version>2.4.0</error_prone_core.version>
+        <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
+        <scm.connection>scm:git:ssh://git@github.piramalfinance.com/platform/app-notification-service.git</scm.connection>
+        <fmt-maven-plugin.version>2.9</fmt-maven-plugin.version>
+        <sonar.projectKey>services_backend-engg_app-notification-service_XXXXXX</sonar.projectKey>
+        <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pchf.client</groupId>
+            <artifactId>param-store-spring-client</artifactId>
+            <version>${param-store-spring-client.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.pchf.client</groupId>
+            <artifactId>document-storage-model</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <exclusions>
+            <exclusion>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-ext-jdk15on</artifactId>
+            </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pchf.client</groupId>
+            <artifactId>exception-handler</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-spring-boot3</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>2.0.9</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- prometheus dependency start -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-micrometer</artifactId>
+            <version>12.1</version>
+        </dependency>
+
+        <!--Metrics Utility -->
+        <dependency>
+            <groupId>com.pchf.client</groupId>
+            <artifactId>metrics-util</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pchf.client</groupId>
+            <artifactId>kafka-util</artifactId>
+            <version>2.1.5</version>
+
+        </dependency>
+
+        <dependency>
+            <groupId>software.amazon.msk</groupId>
+            <artifactId>aws-msk-iam-auth</artifactId>
+            <version>1.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>software.amazon.ion</groupId>
+                    <artifactId>ion-java</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Auth Client -->
+        <dependency>
+            <groupId>com.pchf.client</groupId>
+            <artifactId>auth-client</artifactId>
+            <version>3.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>snakeyaml</artifactId>
+                    <groupId>org.yaml</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15on</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-ext-jdk15on</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk18on</artifactId>
+            <version>1.77</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-ext-jdk18on</artifactId>
+            <version>1.77</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>9.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pchf.client</groupId>
+            <artifactId>communication-common-models</artifactId>
+            <version>2.0.21</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>3.0.10</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>modelmapper</artifactId>
+            <groupId>org.modelmapper</groupId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pchf.client</groupId>
+            <artifactId>mongo-encryption-util</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>32.0.0-android</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pchf.client</groupId>
+            <artifactId>event-tracker-client</artifactId>
+            <version>2.0.8</version>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>bom</artifactId>
+                <version>2.17.136</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+            </dependency>
+
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>5.10.0</version>
+            </dependency>
+            <!-- AWS Dependencies-->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-sts</artifactId>
+                <version>1.11.951</version>
+            </dependency>
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-core</artifactId>
+                <version>1.11.951</version>
+            </dependency>
+            <dependency>
+                <groupId>io.awspring.cloud</groupId>
+                <artifactId>spring-cloud-aws-dependencies</artifactId>
+                <version>2.3.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- To fix CD vulnerability -->
+
+            <!-- https://mvnrepository.com/artifact/org.json/json -->
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20231013</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.xerial.snappy/snappy-java -->
+            <dependency>
+                <groupId>org.xerial.snappy</groupId>
+                <artifactId>snappy-java</artifactId>
+                <version>1.1.10.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>1.4.14</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.4.14</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on -->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk18on</artifactId>
+                <version>1.76</version>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <!-- Used by jenkins for release deployment -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+            </plugin>
+
+            <!-- Deploys artifact to repository based on distributionManagement -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven-deploy-plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <compilerArgs>
+                        <arg>-XDcompilePolicy=simple</arg>
+                    </compilerArgs>
+                    <!-- Both lombok and mapstruct are required to work with each other -->
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>com.google.errorprone</groupId>
+                            <artifactId>error_prone_core</artifactId>
+                            <version>${error_prone_core.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
+            <!-- Auto format code during compilation -->
+            <plugin>
+                <groupId>com.coveo</groupId>
+                <artifactId>fmt-maven-plugin</artifactId>
+                <version>${fmt-maven-plugin.version}</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <skipSortingImports>false</skipSortingImports>
+                    <style>google</style>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Check Style with modified google coding style -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${puppycrawl.checkstyle.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.sevntu-checkstyle</groupId>
+                        <artifactId>sevntu-checks</artifactId>
+                        <version>${sevntu-checks.checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <sourceDirectories>
+                        <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                        <sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
+                    </sourceDirectories>
+                    <failOnViolation>true</failOnViolation>
+                    <configLocation>tools/checkstyle/modified_google_sevntu_checks.xml</configLocation>
+                    <enableRSS>false</enableRSS>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>checkstyle-fail-build</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Code coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/com/piramalfinance/app/AppNotificationService.*</exclude>
+                        <exclude>**/com/piramalfinance/app/accessor/**</exclude>
+                        <exclude>**/com/piramalfinance/app/clients/**</exclude>
+                        <exclude>**/com/piramalfinance/app/config/**</exclude>
+                        <exclude>**/com/piramalfinance/app/constant/**</exclude>
+                        <exclude>**/com/piramalfinance/app/entities/**</exclude>
+                        <exclude>**/com/piramalfinance/app/exception/**</exclude>
+                        <!--excluding FCMFactoryInitializer.java as most of the methods are public static-->
+                        <exclude>**/com/piramalfinance/app/factory/FCMFactoryInitializer.*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <limits>
+                                        <limit>
+                                            <!-- 97% of coverage is minimum -->
+                                            <minimum>0.93</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <scm>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.connection}</developerConnection>
+        <tag>app-notification-service</tag>
+    </scm>
+
+    <repositories>
+        <repository>
+            <id>piramal-releases</id>
+            <url>${nexus.repository}/piramal-releases/</url>
+        </repository>
+        <repository>
+            <id>piramal-snapshots</id>
+            <url>${nexus.repository}/piramal-snapshots/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>piramal-releases</id>
+            <url>${nexus.repository}/piramal-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>piramal-snapshots</id>
+            <url>${nexus.repository}/piramal-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
+
